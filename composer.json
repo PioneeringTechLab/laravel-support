@@ -1,0 +1,24 @@
+{
+    "name": "csun-metalab/laravel-support",
+    "description": "Composer package for Laravel 5.0 and above to allow for feedback and support requests within an application",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matthew Fritz",
+            "email": "mattf@burbankparanormal.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "classmap": [
+            "src/Support/"
+        ],
+        "psr-4": {
+            "CSUNMetaLab\\Support\\": "src/Support/"
+        }
+    }
+}
