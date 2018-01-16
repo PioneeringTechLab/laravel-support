@@ -23,6 +23,31 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Email senders
+    |--------------------------------------------------------------------------
+    |
+    | The various names to use as senders for the feedback and support messages.
+    | The "From" value will be determined by the MAIL_FROM env value outside
+    | of this package.
+    |
+    */
+    'senders' => [
+
+        'feedback' => [
+
+            'name' => env("FEEDBACK_FROM_NAME", "Do Not Reply"),
+
+        ],
+
+        'support' => [
+
+            'name' => env("SUPPORT_FROM_NAME", "Do Not Reply"),
+
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Email titles
     |--------------------------------------------------------------------------
     |
@@ -74,37 +99,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Views
-    |--------------------------------------------------------------------------
-    |
-    | The views that will be used when rendering the email messages as well as
-    | the front-end for the support forms. These can be customized further by
-    | the implementing application. They are also in dot-notation format so
-    | these values can be passed directly into the view() helper function.
-    |
-    */
-    'views' => [
-
-        'email' => [
-
-            'feedback' => env("FEEDBACK_EMAIL_VIEW", "emails.support.feedback"),
-
-            'support' => env("SUPPORT_EMAIL_VIEW", "emails.support.support"),
-
-        ],
-
-        'forms' => [
-
-            'feedback' => env("FEEDBACK_FORM_VIEW", "pages.support.feedback"),
-
-            'support' => env("SUPPORT_FORM_VIEW", "pages.support.support"),
-
-        ],
-
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Support Impact Selections
     |--------------------------------------------------------------------------
     |
@@ -130,22 +124,14 @@ return [
     | value.
     |
     | The database tables where the feedback and support submissions will be
-    | stored is configurable here. Make sure the migraitons are published and
-    | run before attempting to save. The schema will be checked before attempting
+    | stored is determined by a published model. The migrations must be run
+    | prior to any database queries. The schema will be checked before attempting
     | to save to the database.
     |
     */
     'database' => [
 
         'enabled' => env("ENABLE_DB", true),
-
-        'tables' => [
-
-            'feedback' => env("FEEDBACK_DB_TABLE", 'feedback_submissions'),
-
-            'support' => env("SUPPORT_DB_TABLE", 'support_submissions'),
-
-        ],
 
     ],
 ];
