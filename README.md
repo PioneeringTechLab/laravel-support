@@ -117,7 +117,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => '\CSUNMetaLab\Support\Htt
 });
 ```
 
-### Publish Configuration
+### Publish Everything
 
 Finally, run the following Artisan command to publish everything:
 
