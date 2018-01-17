@@ -125,8 +125,7 @@ return [
     |
     | The database tables where the feedback and support submissions will be
     | stored is determined by a published model. The migrations must be run
-    | prior to any database queries. The schema will be checked before attempting
-    | to save to the database.
+    | prior to any database queries.
     |
     */
     'database' => [

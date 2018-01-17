@@ -60,7 +60,7 @@ class SupportServiceProvider extends ServiceProvider
 			// load routes
 			require __DIR__.'/../routes/support.php';
 		}
-		else if($majorMinor == "5.1" || $majorMinor == "5.2") {
+		else if(in_array($majorMinor, ["5.1", "5.2"])) {
 			// code specific to Laravel 5.1 and 5.2
 			// load routes
 			if (! $this->app->routesAreCached()) {

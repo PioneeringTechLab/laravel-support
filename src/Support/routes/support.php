@@ -12,9 +12,9 @@
 */
 
 Route::group(['middleware' => ['auth']], function () {
-	Route::get('support', 'SupportController@create');
-	Route::post('support', 'SupportController@store');
+	Route::get('support', 'SupportController@create')->name('support.create');
+	Route::post('support', 'SupportController@store')->name('support.store');
 
-	Route::get('feedback', 'FeedbackController@create');
-	Route::post('feedback', 'FeedbackController@store');
+	Route::get('feedback', 'FeedbackController@create')->name('feedback.create');
+	Route::post('feedback', 'FeedbackController@store')->name('feedback.store');
 });
