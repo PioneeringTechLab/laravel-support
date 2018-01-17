@@ -28,10 +28,6 @@ class SupportServiceProvider extends ServiceProvider
 	 * @return void
 	 */
 	public function boot() {
-		$versionString = $this->app->version();
-		$versionArr = explode(".", $versionString);
-		$majorMinor = implode(".", [$versionArr[0], $versionArr[1]]);
-
 		// publish configuration
 		$this->publishes([
         	__DIR__.'/../config/support.php' => config_path('support.php'),
@@ -52,27 +48,6 @@ class SupportServiceProvider extends ServiceProvider
 	    $this->publishes([
 	        __DIR__.'/../views' => base_path('resources/views/vendor/support'),
 	    ], 'views');
-
-		// check Laravel version since the service provider will have to
-		// boot in different ways based upon the version
-		if($majorMinor == "5.0") {
-			// code specific to Laravel 5.0
-			// load routes
-			require __DIR__.'/../routes/support.php';
-		}
-		else if(in_array($majorMinor, ["5.1", "5.2"])) {
-			// code specific to Laravel 5.1 and 5.2
-			// load routes
-			if (! $this->app->routesAreCached()) {
-		        require __DIR__.'/../routes/support.php';
-		    }
-		}
-		else
-		{
-			// code for 5.3 and above
-			// load routes
-			$this->loadRoutesFrom(__DIR__.'/../routes/support.php');
-		}
 	}
 
 	/**
