@@ -127,10 +127,10 @@ php artisan vendor:publish
 
 The following assets are published:
 
-* Configuration (tagged as `config`)
-* Migrations (tagged as `migrations`)
-* Models (tagged as `models`)
-* Views (tagged as `views`)
+* Configuration (tagged as `config`) - these go into your `config` directory
+* Migrations (tagged as `migrations`) - these go into your `database/migrations` directory
+* Models (tagged as `models`) - these go into your `app` directory
+* Views (tagged as `views`) - these go into your `resources/views/vendor/support` directory
 
 ## Required Environment Variables
 
