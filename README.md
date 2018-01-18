@@ -348,7 +348,7 @@ Most of the data required for processing will be added by the matching controlle
 
 #### Validation Rules
 
-* `content.required`: this field must be included in the request
+* `content.required`: the `content` field must have a non-null value in the request
 
 #### Validation Messages
 
@@ -360,9 +360,9 @@ This class is namespaced as `CSUNMetaLab\Support\Http\Requests\SupportFormReques
 
 #### Validation Rules
 
-* `impact.required`: this field must be included in the request
-* `impact.in`: the value of this field be within the array values in the `impact` key within `config/support.php`
-* `content.required`: this field must be included in the request
+* `impact.required`: the `impact` field must have a non-null value in the request
+* `impact.in`: the value of the `impact` field be within the array values in the `impact` key within `config/support.php`
+* `content.required`: the `content` field must have a non-null value in the request
 
 #### Validation Messages
 
