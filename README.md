@@ -53,10 +53,13 @@ SUBMITTER_ID_ATTR=id
 SUBMITTER_NAME_ATTR=name
 SUBMITTER_EMAIL_ATTR=email
 
+ALLOW_APPLICATION_NAME_OVERRIDE=false
 SEND_COPY_TO_SUBMITTER=false
 
 ENABLE_DB=true
 ```
+
+If you want to keep the defaults for the given values, you do not need to include them in your `.env` file.
 
 #### Service Provider
 
