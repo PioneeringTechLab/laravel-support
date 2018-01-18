@@ -88,6 +88,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Allow override of application name?
+    |--------------------------------------------------------------------------
+    |
+    | Determines whether the name of the application reported in the message
+    | can be overridden by a request input value with the name of
+    | "application_name". If this is set to true, it can promote the creation
+    | of a central support request system that allows the user to pick the
+    | application where the issue arose, for example.
+    |
+    | Default value is false.
+    |
+    */
+    'allow_application_name_override' => env("ALLOW_APPLICATION_NAME_OVERRIDE", false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Should submitter be CC'd?
     |--------------------------------------------------------------------------
     |

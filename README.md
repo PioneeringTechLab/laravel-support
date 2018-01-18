@@ -207,6 +207,15 @@ This value will be included when email messages are sent.
 
 Default is `email`.
 
+### ALLOW_APPLICATION_NAME_OVERRIDE
+
+Determines whether the name of the application reported in the message can be overridden by a request input value with the name of
+`application_name`.
+
+If this is set to `true`, it can promote the creation of a central support request system that allows the user to pick the application where the issue arose, for example.
+
+Default value is `false`.
+
 ### SEND_COPY_TO_SUBMITTER
 
 Boolean that describes whether the submitter should receive a copy of the message that was sent.
