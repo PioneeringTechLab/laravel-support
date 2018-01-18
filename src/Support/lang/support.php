@@ -1,0 +1,19 @@
+<?php
+
+return [
+
+	// errors
+	'errors.feedback.model_not_found' => 'The configured feedback model (:model) could not be resolved.',
+	'errors.support.model_not_found' => 'The configured support model (:model) could not be resolved.',
+
+	// validation errors (feedback)
+	'errors.v.feedback.content.required' => 'Please add a message to your feedback submission',
+
+	// validation errors (support)
+	'errors.v.support.impact.required' => 'Please select an impact for your request',
+	'errors.v.support.impact.in' => 'Please select a valid impact for your request',
+	'errors.v.support.content.required' => 'Please add a message to your request',
+
+	// success messages
+
+];

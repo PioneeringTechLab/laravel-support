@@ -15,6 +15,8 @@ MySQL database functionality is enabled by default to promote storage and persis
 * [Routing](#routing)
 * [Migrations](#migrations)
 * [Models](#models)
+* [Custom Messages](#custom-messages)
+* [Custom Form Requests](#custom-form-requests)
 * [Controllers](#controllers)
 * [Views](#views)
 * [Resources](#resources)
@@ -134,6 +136,7 @@ The following assets are published:
 * Configuration (tagged as `config`) - these go into your `config` directory
 * Migrations (tagged as `migrations`) - these go into your `database/migrations` directory
 * Models (tagged as `models`) - these go into your `app` directory
+* Messages (tagged as `lang`) - these go into your `resources/lang/en` directory as `support.php`
 * Views (tagged as `views`) - these go into your `resources/views/vendor/support` directory
 
 ## Required Environment Variables
@@ -215,7 +218,7 @@ Default is `email`.
 Determines whether the name of the application reported in the message can be overridden by a request input value with the name of
 `application_name`.
 
-If this is set to `true`, it can promote the creation of a central support request system that allows the user to pick the application where the issue arose, for example.
+If this is set to `true`, it can promote the creation of a central support request system that allows the user to pick the application where the issue arose, for example. If the request value does not exist, the value of the `app.name` configuration entry will be used instead.
 
 Default value is `false`.
 
@@ -324,6 +327,48 @@ The full namespace to the model is `CSUNMetaLab\Support\Models\Supportubmission`
 * Fillable: `application_name`, `user_id`, `impact`, `content`
 
 The exception that may be thrown is an instance of `CSUNMetaLab\Support\Exceptions\SupportModelNotFoundException`.
+
+## Custom Messages
+
+The custom messages for this package can be found in `resources/lang/en/support.php` by default. The messages can also be overridden as needed.
+
+You may also translate the messages in that file to other languages to promote localization, as well.
+
+The package reads from this file (using the configured localization) for all messages it must display to the user or write to any logs.
+
+## Custom Form Requests
+
+The controllers leverage custom form request classes in order to accept and process the input. Each form request exposes custom validation rules and error messages.
+
+### Feedback Form Request
+
+This class is namespaced as `CSUNMetaLab\Support\Http\Requests\FeedbackFormRequest`.
+
+Most of the data required for processing will be added by the matching controller so there are not many validation rules for this request.
+
+#### Validation Rules
+
+* `content.required`: this field must be included in the request
+
+#### Validation Messages
+
+* `support.errors.v.feedback.content.required`: the `content` field has no input
+
+### Support Form Request
+
+This class is namespaced as `CSUNMetaLab\Support\Http\Requests\SupportFormRequest`.
+
+#### Validation Rules
+
+* `impact.required`: this field must be included in the request
+* `impact.in`: the value of this field be within the array values in the `impact` key within `config/support.php`
+* `content.required`: this field must be included in the request
+
+#### Validation Messages
+
+* `support.errors.v.support.impact.required`: the `impact` field has no input
+* `support.errors.v.support.impact.in`: the value of the `impact` field is invalid
+* `support.errors.v.support.content.required`: the `content` field has no input
 
 ## Controllers
 

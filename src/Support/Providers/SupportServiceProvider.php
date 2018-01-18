@@ -43,6 +43,11 @@ class SupportServiceProvider extends ServiceProvider
     		__DIR__.'/../Models' => app_path(),
     	], 'models');
 
+    	// publish language files
+    	$this->publishes([
+    		__DIR__.'/../lang' => base_path('resources/lang/en')
+    	], 'lang');
+
     	// publish views and make them available as well
     	$this->loadViewsFrom(__DIR__.'/../views', 'support');
 	    $this->publishes([
