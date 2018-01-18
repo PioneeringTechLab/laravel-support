@@ -10,6 +10,14 @@ MySQL database functionality is enabled by default to promote storage and persis
 ## Table of Contents
 
 * [Installation](#installation)
+    * [Composer, Environment, and Service Provider](#composer-environment-and-service-provider)
+        * [Composer](#composer)
+        * [Environment](#environment)
+        * [Service Provider](#service-provider)
+    * [Route Installation](#route-installation)
+        * [Laravel 5.1 and above](#laravel-51-and-above)
+        * [Laravel 5.0](#laravel-50)
+    * [Publish Everything](#publish-everything)
 * [Required Environment Variables](#required-environment-variables)
 * [Optional Environment Variables](#optional-environment-variables)
 * [Routing](#routing)
@@ -395,7 +403,7 @@ TBD
 * [Localization in Laravel 5.1](https://laravel.com/docs/5.1/localization)
 * [Localization in Laravel 5.2](https://laravel.com/docs/5.2/localization)
 * [Localization in Laravel 5.3](https://laravel.com/docs/5.3/localization)
-* [Localization in Laravel 5.4](https://laravel.com/docs/5.0/localization)
+* [Localization in Laravel 5.4](https://laravel.com/docs/5.4/localization)
 * [Localization in Laravel 5.5](https://laravel.com/docs/5.5/localization)
 
 ### Form Request Validation Documentation
