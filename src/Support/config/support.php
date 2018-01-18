@@ -124,13 +124,26 @@ return [
     | value.
     |
     | The database tables where the feedback and support submissions will be
-    | stored is determined by a published model. The migrations must be run
+    | stored is determined by the published models. The migrations must be run
     | prior to any database queries.
+    |
+    | The full namespace to the published models can also be modified here in
+    | the "models" array within this element. An exception will be thrown if
+    | the specified model cannot be found during its usage in the controllers.
     |
     */
     'database' => [
 
         'enabled' => env("ENABLE_DB", true),
 
+        'models' => [
+
+            'feedback' => 'CSUNMetaLab\Support\Models\FeedbackSubmission',
+
+            'support' => 'CSUNMetaLab\Support\Models\SupportSubmission',
+
+        ],
+
     ],
+
 ];

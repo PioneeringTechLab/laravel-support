@@ -217,7 +217,7 @@ Default is `false`.
 
 MySQL database support is enabled by default so you will need to have a valid database connection. Database support can be disabled by setting this value to `false`. This package can still perform the sending of email messages even with database support disabled.
 
-The database tables where the feedback and support submissions will be stored is determined by a published model.
+The database tables where the feedback and support submissions will be stored is determined by the published models.
 
 The migrations must be run prior to any database queries.
 
@@ -267,7 +267,7 @@ You are also not required to use these migrations. The associated models can be 
 Table name is `feedback_submissions`.
 
 * `submission_id`: auto-incrementing integer primary key
-* `application_name`: nullable name of the application from where the message was submitted; defaults to the value of `app.name` config element
+* `application_name`: nullable name of the application from where the message was submitted; defaults to the value of the `app.name` config element
 * `user_id`: ID of the authenticated user that submitted the message
 * `content`: body text of the feedback message
 * `created_at`: timestamp describing when the message was sent
@@ -278,7 +278,7 @@ Table name is `feedback_submissions`.
 Table name is `support_submissions`.
 
 * `submission_id`: auto-incrementing integer primary key
-* `application_name`: nullable name of the application from where the message was submitted; defaults to the value of `app.name` config element
+* `application_name`: nullable name of the application from where the message was submitted; defaults to the value of the `app.name` config element
 * `user_id`: ID of the authenticated user that submitted the message
 * `impact`: the impact of the issue resulting in the request (could be `low`, `medium`, or `high` for example)
 * `content`: body text of the support request message
@@ -287,7 +287,31 @@ Table name is `support_submissions`.
 
 ## Models
 
-TBD
+The models that will be used to store the feedback and support request submissions can be configured in the published `config/support.php` file within the `database.models` section.
+
+Exceptions will be thrown if the models cannot be found when used in the controllers. However, the email messages themselves will still go out.
+
+The tables and primary keys of each model can also be configured from within the models themselves.
+
+### Feedback Submissions
+
+The full namespace to the model is `CSUNMetaLab\Support\Models\FeedbackSubmission`.
+
+* Table: `feedback_submissions`
+* Primary key: `submission_id`
+* Fillable: `application_name`, `user_id`, `content`
+
+The exception that may be thrown is an instance of `CSUNMetaLab\Support\Exceptions\FeedbackModelNotFoundException`.
+
+### Support Request Submissions
+
+The full namespace to the model is `CSUNMetaLab\Support\Models\Supportubmission`.
+
+* Table: `support_submissions`
+* Primary key: `submission_id`
+* Fillable: `application_name`, `user_id`, `impact`, `content`
+
+The exception that may be thrown is an instance of `CSUNMetaLab\Support\Exceptions\SupportModelNotFoundException`.
 
 ## Controllers
 
