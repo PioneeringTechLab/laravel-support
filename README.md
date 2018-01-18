@@ -5,7 +5,7 @@ This package adds the ability to accept support requests out of the box with min
 
 MySQL database functionality is enabled by default to promote storage and persistence of messages that are sent out. This functionality is optional, however, so this package does not require a database in order to perform the sending of requests.
 
-**NOTE:** This package relies on the [mail functionality provided by Laravel](https://laravel.com/docs/5.3/mail) and the settings can differ based upon Laravel version. Please ensure your mail settings in your `.env` file are valid.
+**NOTE:** This package relies on the [mail functionality provided by Laravel](#mail-documentation) and the settings can differ based upon Laravel version. Please ensure your mail settings in your `.env` file are valid.
 
 ## Table of Contents
 
@@ -17,6 +17,7 @@ MySQL database functionality is enabled by default to promote storage and persis
 * [Models](#models)
 * [Controllers](#controllers)
 * [Views](#views)
+* [Resources](#resources)
 
 ## Installation
 
@@ -295,3 +296,14 @@ TBD
 ## Views
 
 TBD
+
+## Resources
+
+### Mail Documentation
+
+* [Mail in Laravel 5.0](https://laravel.com/docs/5.0/mail)
+* [Mail in Laravel 5.1](https://laravel.com/docs/5.1/mail)
+* [Mail in Laravel 5.2](https://laravel.com/docs/5.2/mail)
+* [Mail in Laravel 5.3](https://laravel.com/docs/5.3/mail)
+* [Mail in Laravel 5.4](https://laravel.com/docs/5.4/mail)
+* [Mail in Laravel 5.5](https://laravel.com/docs/5.5/mail)
