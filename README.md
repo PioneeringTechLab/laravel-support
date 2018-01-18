@@ -388,3 +388,21 @@ TBD
 * [Mail in Laravel 5.3](https://laravel.com/docs/5.3/mail)
 * [Mail in Laravel 5.4](https://laravel.com/docs/5.4/mail)
 * [Mail in Laravel 5.5](https://laravel.com/docs/5.5/mail)
+
+### Localization Documentation
+
+* [Localization in Laravel 5.0](https://laravel.com/docs/5.0/localization)
+* [Localization in Laravel 5.1](https://laravel.com/docs/5.1/localization)
+* [Localization in Laravel 5.2](https://laravel.com/docs/5.2/localization)
+* [Localization in Laravel 5.3](https://laravel.com/docs/5.3/localization)
+* [Localization in Laravel 5.4](https://laravel.com/docs/5.0/localization)
+* [Localization in Laravel 5.5](https://laravel.com/docs/5.5/localization)
+
+### Form Request Validation Documentation
+
+* [Form Request Validation in Laravel 5.0](https://laravel.com/docs/5.0/validation#form-request-validation)
+* [Form Request Validation in Laravel 5.1](https://laravel.com/docs/5.1/validation#form-request-validation)
+* [Form Request Validation in Laravel 5.2](https://laravel.com/docs/5.2/validation#form-request-validation)
+* [Form Request Validation in Laravel 5.3](https://laravel.com/docs/5.3/validation#form-request-validation)
+* [Form Request Validation in Laravel 5.4](https://laravel.com/docs/5.4/validation#form-request-validation)
+* [Form Request Validation in Laravel 5.5](https://laravel.com/docs/5.5/validation#form-request-validation)
