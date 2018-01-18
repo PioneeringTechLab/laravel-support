@@ -5,7 +5,7 @@ This package adds the ability to accept support requests out of the box with min
 
 MySQL database functionality is enabled by default to promote storage and persistence of messages that are sent out. This functionality is optional, however, so this package does not require a database in order to perform the sending of requests.
 
-**NOTE:** This package relies on the [mail functionality provided by Laravel](https://laravel.com/docs/5.3/mail). Please ensure your mail settings in your `.env` file are valid.
+**NOTE:** This package relies on the [mail functionality provided by Laravel](https://laravel.com/docs/5.3/mail) and the settings can differ based upon Laravel version. Please ensure your mail settings in your `.env` file are valid.
 
 ## Table of Contents
 
@@ -224,11 +224,65 @@ Default is `true`.
 
 ## Routing
 
-TBD
+In all cases for the routes exposed by the package, you are free to modify the path of the route but keep these two constraints in mind:
+
+1. Please **do not** modify the HTTP method of the routes unless you are also planning to modify the published views.
+2. Please **do not** modify the route names since both the underlying controller functionality as well as the published views use them.
+
+### Display Feedback Form
+
+* Path: `/feedback`
+* HTTP method: `GET`
+* Route name: `feedback.create`
+
+### Process Feedback Form
+
+* Path: `/feedback`
+* HTTP method: `POST`
+* Route name: `feedback.store`
+
+### Display Support Request Form
+
+* Path: `/support`
+* HTTP method: `GET`
+* Route name: `support.create`
+
+### Process Support Request Form
+
+* Path: `/support`
+* HTTP method: `POST`
+* Route name: `support.store`
 
 ## Migrations
 
-TBD
+There are two migrations that are included with this package. They are intended to store information about the feedback and support request submissions that have been received from the application.
+
+The name of the application from which the message was submitted as well as the ID of the authenticated user are stored in both cases as well.
+
+You are also not required to use these migrations. The associated models can be pointed at any database table as long as they match the same structure.
+
+### Feedback Submissions
+
+Table name is `feedback_submissions`.
+
+* `submission_id`: auto-incrementing integer primary key
+* `application_name`: nullable name of the application from where the message was submitted; defaults to the value of `app.name` config element
+* `user_id`: ID of the authenticated user that submitted the message
+* `content`: body text of the feedback message
+* `created_at`: timestamp describing when the message was sent
+* `updated_at`: nullable timestamp describing when the message was updated, if at all
+
+### Support Request Submissions
+
+Table name is `support_submissions`.
+
+* `submission_id`: auto-incrementing integer primary key
+* `application_name`: nullable name of the application from where the message was submitted; defaults to the value of `app.name` config element
+* `user_id`: ID of the authenticated user that submitted the message
+* `impact`: the impact of the issue resulting in the request (could be `low`, `medium`, or `high` for example)
+* `content`: body text of the support request message
+* `created_at`: timestamp describing when the message was sent
+* `updated_at`: nullable timestamp describing when the message was updated, if at all
 
 ## Models
 

@@ -14,6 +14,7 @@ class CreateFeedbackSubmissionsTable extends Migration {
 	{
 		Schema::create('feedback_submissions', function(Blueprint $table) {
 			$table->increments('submission_id');
+			$table->string('application_name')->nullable();
 			$table->string('user_id');
 			$table->text('content');
 			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

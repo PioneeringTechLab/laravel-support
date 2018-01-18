@@ -14,6 +14,7 @@ class CreateSupportSubmissionsTable extends Migration {
 	{
 		Schema::create('support_submissions', function(Blueprint $table) {
 			$table->increments('submission_id');
+			$table->string('application_name')->nullable();
 			$table->string('user_id');
 			$table->string('impact');
 			$table->text('content');
