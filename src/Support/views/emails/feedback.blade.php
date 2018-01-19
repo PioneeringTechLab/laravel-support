@@ -1,7 +1,7 @@
-New feedback submission from {{ $user_name }}:
+New feedback submission from {{ $submitter_name }}
 
-Application: {{ $application }}
+Application: {{ $application_name }}
 
-Email: {{ $user_email }}
+Email: {{ $submitter_email }}
 
 {{ $content }}

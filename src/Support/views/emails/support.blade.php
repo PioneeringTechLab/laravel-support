@@ -1,9 +1,9 @@
-New support request from {{ $user_name }}:
+New support request from {{ $submitter_name }}
 
-Application: {{ $application }}
+Application: {{ $application_name }}
 
-Impact: {{ $impact_value }}
+Impact: {{ $impact }}
 
-Email: {{ $user_email }}
+Email: {{ $submitter_email }}
 
 {{ $content }}

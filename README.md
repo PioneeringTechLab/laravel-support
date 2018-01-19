@@ -80,7 +80,10 @@ SUPPORT_RECIPIENT=
 You may also elect to add the following optional line(s) to your `.env` file to customize the functionality further. These values are shown with their defaults. They are explained in detail within the [Optional Environment Variables](#optional-environment-variables) section further down:
 
 ```
+FEEDBACK_FROM_ADDR=donotreply@example.com
 FEEDBACK_FROM_NAME=Do Not Reply
+
+SUPPORT_FROM_ADDR=donotreply@example.com
 SUPPORT_FROM_NAME=Do Not Reply
 
 FEEDBACK_TITLE=New Feedback Submission
@@ -198,13 +201,27 @@ Example (multiple): `help@example.com|support@example.com`
 
 There are several optional environment variables that may be added to customize the functionality of the package even further.
 
+### FEEDBACK_FROM_ADDR
+
+The email address to use as the sender when sending a feedback message.
+
+If this value has not been specified, the value of `MAIL_FROM` in your `.env` value will be used instead. If there is no `MAIL_FROM` value to use as a fallback, an exception will be thrown upon sending the feedback message.
+
+Default value is either the `MAIL_FROM` value or `null`.
+
 ### FEEDBACK_FROM_NAME
 
 The email display name to use when sending a feedback message.
 
-The "From" address will be determined by the `MAIL_FROM` environment value outside of this package.
-
 Default is `Do Not Reply`.
+
+### SUPPORT_FROM_ADDR
+
+The email address to use as the sender when sending a support request message.
+
+If this value has not been specified, the value of `MAIL_FROM` in your `.env` value will be used instead. If there is no `MAIL_FROM` value to use as a fallback, an exception will be thrown upon sending the support request message.
+
+Default value is either the `MAIL_FROM` value or `null`.
 
 ### SUPPORT_FROM_NAME
 
@@ -419,11 +436,30 @@ Therefore, these instances will only be used in Laravel 5.3 and above.
 
 #### Feedback Mailable
 
-TBD
+This class is namespaced as `CSUNMetaLab\Support\Mail\FeedbackMailMessage`.
+
+When building this mailable, the `emails.feedback` view will be used inside of the `resources/views/vendor/support` directory.
+
+The following properties are exposed to the view via public properties:
+
+* `$submitter_name`: the name of the individual submitting the message
+* `$submitter_email`: the email address of the individual submitting the message
+* `$application_name`: the name of the application from where the message is being submitted
+* `$content`: the body content of the message
 
 #### Support Request Mailable
 
-TBD
+This class is namespaced as `CSUNMetaLab\Support\Mail\SupportMailMessage`.
+
+When building this mailable, the `emails.support` view will be used inside of the `resources/views/vendor/support` directory.
+
+The following properties are exposed to the view via public properties:
+
+* `$submitter_name`: the name of the individual submitting the message
+* `$submitter_email`: the email address of the individual submitting the message
+* `$application_name`: the name of the application from where the message is being submitted
+* `$impact`: the impact of the issue that resulted in the support request
+* `$content`: the body content of the message
 
 ### Mail Facade Fallback
 

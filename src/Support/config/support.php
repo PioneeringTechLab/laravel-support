@@ -26,20 +26,28 @@ return [
     | Email senders
     |--------------------------------------------------------------------------
     |
-    | The various names to use as senders for the feedback and support messages.
+    | The various addresses and display names to use as senders for the
+    | feedback and support messages.
+    |
     | The "From" value will be determined by the MAIL_FROM env value outside
-    | of this package.
+    | of this package if the FEEDBACK_FROM_ADDR or SUPPORT_FROM_ADDR values do
+    | not exist. If there is still no valid address, an exception will be
+    | thrown.
     |
     */
     'senders' => [
 
         'feedback' => [
 
+            'address' => env("FEEDBACK_FROM_ADDR", env("MAIL_FROM")),
+
             'name' => env("FEEDBACK_FROM_NAME", "Do Not Reply"),
 
         ],
 
         'support' => [
+
+            'address' => env("SUPPORT_FROM_ADDR", env("MAIL_FROM")),
 
             'name' => env("SUPPORT_FROM_NAME", "Do Not Reply"),
 
