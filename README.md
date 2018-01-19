@@ -45,11 +45,14 @@ MySQL database functionality is enabled by default to promote storage and persis
         * [Support Request Mailable](#support-request-mailable)
     * [Mail Facade Fallback](#mail-facade-fallback)
 * [Controllers](#controllers)
+    * [Feedback Controller](#feedback-controller)
+    * [Support Request Controller](#support-request-controller)
 * [Views](#views)
     * [Emails](#emails)
     * [Forms](#forms)
 * [Resources](#resources)
     * [Mail Documentation](#mail-documentation)
+    * [Queue Documentation](#queue-documentation)
     * [Localization Documentation](#localization-documentation)
     * [Form Request Validation Documentation](#form-request-validation-documentation)
 
@@ -404,6 +407,10 @@ This class is namespaced as `CSUNMetaLab\Support\Http\Requests\SupportFormReques
 
 ## Sending Mail
 
+The feedback and support request messages will be sent differently depending on the version of Laravel in which the package has been installed.
+
+In all cases, however, the messages will always request to be queued so this functionality can be used in conjunction with [some kind of Laravel queue](#queue-documentation) if necessary.
+
 ### Custom Mailable Instances
 
 Please note that the custom queueable instances of `Illuminate\Mail\Mailable` will only be used if that class exists.
@@ -422,9 +429,13 @@ TBD
 
 The `Mail` facade will be used in conjunction with its `queue()` method in Laravel 5.0 - 5.2 since the concept of mailables did not yet exist.
 
+## Controllers
+
+### Feedback Controller
+
 TBD
 
-## Controllers
+### Support Request Controller
 
 TBD
 
@@ -448,6 +459,15 @@ TBD
 * [Mail in Laravel 5.3](https://laravel.com/docs/5.3/mail)
 * [Mail in Laravel 5.4](https://laravel.com/docs/5.4/mail)
 * [Mail in Laravel 5.5](https://laravel.com/docs/5.5/mail)
+
+### Queue Documentation
+
+* [Queues in Laravel 5.0](https://laravel.com/docs/5.0/queues)
+* [Queues in Laravel 5.1](https://laravel.com/docs/5.1/queues)
+* [Queues in Laravel 5.2](https://laravel.com/docs/5.2/queues)
+* [Queues in Laravel 5.3](https://laravel.com/docs/5.3/queues)
+* [Queues in Laravel 5.4](https://laravel.com/docs/5.4/queues)
+* [Queues in Laravel 5.5](https://laravel.com/docs/5.5/queues)
 
 ### Localization Documentation
 
