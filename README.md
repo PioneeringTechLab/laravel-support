@@ -39,8 +39,15 @@ MySQL database functionality is enabled by default to promote storage and persis
     * [Support Form Request](#support-form-request)
         * [Validation Rules](#validation-rules-1)
         * [Validation Messages](#validation-messages-1)
+* [Sending Mail](#sending-mail)
+    * [Custom Mailable Instances](#custom-mailable-instances)
+        * [Feedback Mailable](#feedback-mailable)
+        * [Support Request Mailable](#support-request-mailable)
+    * [Mail Facade Fallback](#mail-facade-fallback)
 * [Controllers](#controllers)
 * [Views](#views)
+    * [Emails](#emails)
+    * [Forms](#forms)
 * [Resources](#resources)
     * [Mail Documentation](#mail-documentation)
     * [Localization Documentation](#localization-documentation)
@@ -395,11 +402,39 @@ This class is namespaced as `CSUNMetaLab\Support\Http\Requests\SupportFormReques
 * `support.errors.v.support.impact.in`: the value of the `impact` field is invalid
 * `support.errors.v.support.content.required`: the `content` field has no input
 
+## Sending Mail
+
+### Custom Mailable Instances
+
+Please note that the custom queueable instances of `Illuminate\Mail\Mailable` will only be used if that class exists.
+
+Therefore, these instances will only be used in Laravel 5.3 and above. 
+
+#### Feedback Mailable
+
+TBD
+
+#### Support Request Mailable
+
+TBD
+
+### Mail Facade Fallback
+
+The `Mail` facade will be used in conjunction with its `queue()` method in Laravel 5.0 - 5.2 since the concept of mailables did not yet exist.
+
+TBD
+
 ## Controllers
 
 TBD
 
 ## Views
+
+### Emails
+
+TBD
+
+### Forms
 
 TBD
 
