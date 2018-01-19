@@ -18,7 +18,7 @@ class FeedbackController extends BaseController
 	 * @return View
 	 */
 	public function create() {
-
+		return view("support::forms.feedback");
 	}
 
 	/**
