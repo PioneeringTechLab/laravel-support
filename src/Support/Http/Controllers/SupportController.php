@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller as BaseController;
 
 use Illuminate\Support\Facades\Mail;
 
+use CSUNMetaLab\Support\Exceptions\InvalidSupportSenderException;
 use CSUNMetaLab\Support\Exceptions\SupportModelNotFoundException;
 
 use CSUNMetaLab\Support\Http\Requests\SupportFormRequest;
@@ -25,8 +26,18 @@ class SupportController extends BaseController
 	 * Accepts the support request submission and redirects back upon success.
 	 *
 	 * @return RedirectResponse
+	 *
+	 * @throws InvalidSupportSenderException
+	 * @throws SupportModelNotFoundException
 	 */
 	public function store(SupportFormRequest $request) {
+		// ensure we have a valid sender address before we go any further
+		if(!config('support.senders.support.address')) {
+			$msg = trans('support.errors.support.invalid_sender');
+			logger()->error($msg);
+			throw new InvalidSupportSenderException($msg);
+		}
+
 		$content = $request->input('content');
 
 		// retrieve the user attributes dynamically

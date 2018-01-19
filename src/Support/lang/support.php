@@ -3,6 +3,8 @@
 return [
 
 	// errors
+	'errors.feedback.invalid_sender' => 'There is no valid sender address for the feedback message',
+	'errors.support.invalid_sender' => 'There is no valid sender address for the support request message',
 	'errors.feedback.model_not_found' => 'The configured feedback model (:model) could not be resolved.',
 	'errors.support.model_not_found' => 'The configured support model (:model) could not be resolved.',
 

@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller as BaseController;
 
 use Illuminate\Support\Facades\Mail;
 
+use CSUNMetaLab\Support\Exceptions\InvalidFeedbackSenderException;
 use CSUNMetaLab\Support\Exceptions\FeedbackModelNotFoundException;
 
 use CSUNMetaLab\Support\Http\Requests\FeedbackFormRequest;
@@ -25,8 +26,18 @@ class FeedbackController extends BaseController
 	 * Accepts the feedback submission and redirects back upon success.
 	 *
 	 * @return RedirectResponse
+	 *
+	 * @throws InvalidFeedbackSenderException
+	 * @throws FeedbackModelNotFoundException
 	 */
 	public function store(FeedbackFormRequest $request) {
+		// ensure we have a valid sender address before we go any further
+		if(!config('support.senders.feedback.address')) {
+			$msg = trans('support.errors.feedback.invalid_sender');
+			logger()->error($msg);
+			throw new InvalidFeedbackSenderException($msg);
+		}
+
 		$content = $request->input('content');
 
 		// retrieve the name and email attributes dynamically

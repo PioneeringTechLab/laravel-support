@@ -440,7 +440,7 @@ This class is namespaced as `CSUNMetaLab\Support\Mail\FeedbackMailMessage`.
 
 When building this mailable, the `emails.feedback` view will be used inside of the `resources/views/vendor/support` directory.
 
-The following properties are exposed to the view via public properties:
+The following variables are exposed to the view via public properties in the class:
 
 * `$submitter_name`: the name of the individual submitting the message
 * `$submitter_email`: the email address of the individual submitting the message
@@ -453,7 +453,7 @@ This class is namespaced as `CSUNMetaLab\Support\Mail\SupportMailMessage`.
 
 When building this mailable, the `emails.support` view will be used inside of the `resources/views/vendor/support` directory.
 
-The following properties are exposed to the view via public properties:
+The following variables are exposed to the view via public properties in the class:
 
 * `$submitter_name`: the name of the individual submitting the message
 * `$submitter_email`: the email address of the individual submitting the message
