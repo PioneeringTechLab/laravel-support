@@ -2,7 +2,6 @@
 
 namespace CSUNMetaLab\Support\Http\Requests;
 
-use Illuminate\Support\Facades\Config;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SupportFormRequest extends FormRequest
@@ -12,7 +11,7 @@ class SupportFormRequest extends FormRequest
 	}
 
 	public function rules() {
-		$choicesArr = unserialize(Config::get('support.impact'));
+		$choicesArr = unserialize(config('support.impact'));
 		$choices = implode(",", array_keys($choicesArr));
 		return [
 			'impact' => 'required|in:' . $choices,

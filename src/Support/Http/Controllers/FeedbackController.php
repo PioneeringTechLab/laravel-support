@@ -5,7 +5,6 @@ namespace CSUNMetaLab\Support\Http\Controllers;
 use Illuminate\Routing\Controller as BaseController;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -33,16 +32,16 @@ class FeedbackController extends BaseController
 		$content = $request->input('content');
 
 		// retrieve the name and email attributes dynamically
-		$idAttr = Config::get('support.submitter.id', 'id');
-		$nameAttr = Config::get('support.submitter.name', 'name');
-		$emailAttr = Config::get('support.submitter.email', 'email');
+		$idAttr = config('support.submitter.id', 'id');
+		$nameAttr = config('support.submitter.name', 'name');
+		$emailAttr = config('support.submitter.email', 'email');
 		$user_id = Auth::user()->$idAttr;
 		$name = Auth::user()->$nameAttr;
 		$email = Auth::user()->$emailAttr;
 
 		// determine what to report as the application name
-		$appName = Config::get('app.name', 'Laravel');
-		if(Config::get('support.allow_application_name_override')) {
+		$appName = config('app.name', 'Laravel');
+		if(config('support.allow_application_name_override')) {
 			if($request->input('application_name', null)) {
 				$appName = $request->input('application_name');
 			}
@@ -58,8 +57,8 @@ class FeedbackController extends BaseController
 		}
 
 		// write the record to the database if database support is enabled
-		if(Config::get('support.database.enabled')) {
-			$model = Config::get('support.database.models.feedback');
+		if(config('support.database.enabled')) {
+			$model = config('support.database.models.feedback');
 			if(class_exists($model)) {
 				$model::create([
 					'application_name' => $appName,

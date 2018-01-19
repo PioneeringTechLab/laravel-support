@@ -35,7 +35,7 @@ class SupportServiceProvider extends ServiceProvider
 
     	// publish migrations
     	$this->publishes([
-    		__DIR__.'/../migrations' => base_path('database/migrations'),
+    		__DIR__.'/../migrations' => database_path('migrations'),
     	], 'migrations');
 
     	// publish models into the app directory
