@@ -30,11 +30,13 @@ class SupportController extends BaseController
 	 * @return RedirectResponse
 	 */
 	public function store(SupportFormRequest $request) {
-		$user_id = Auth::id();
-
-		// retrieve the name and email attributes dynamically
+		$content = $request->input('content');
+		
+		// retrieve the user attributes dynamically
+		$idAttr = Config::get('support.submitter.id', 'id');
 		$nameAttr = Config::get('support.submitter.name', 'name');
 		$emailAttr = Config::get('support.submitter.email', 'email');
+		$user_id = Auth::user()->$idAttr;
 		$name = Auth::user()->$nameAttr;
 		$email = Auth::user()->$emailAttr;
 
@@ -79,7 +81,7 @@ class SupportController extends BaseController
 					'model' => $model
 				]);
 				Log::error($msg);
-				throw new FeedbackModelNotFoundException($msg);
+				throw new SupportModelNotFoundException($msg);
 			}
 		}
 
