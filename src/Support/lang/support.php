@@ -15,5 +15,7 @@ return [
 	'errors.v.support.content.required' => 'Please add a message to your request',
 
 	// success messages
+	'success.feedback' => 'You have successfully submitted your feedback!',
+	'success.support' => 'You have successfully submitted your support request!',
 
 ];

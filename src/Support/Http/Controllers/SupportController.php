@@ -4,8 +4,6 @@ namespace CSUNMetaLab\Support\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 use CSUNMetaLab\Support\Exceptions\SupportModelNotFoundException;
@@ -35,9 +33,9 @@ class SupportController extends BaseController
 		$idAttr = config('support.submitter.id', 'id');
 		$nameAttr = config('support.submitter.name', 'name');
 		$emailAttr = config('support.submitter.email', 'email');
-		$user_id = Auth::user()->$idAttr;
-		$name = Auth::user()->$nameAttr;
-		$email = Auth::user()->$emailAttr;
+		$user_id = auth()->user()->$idAttr;
+		$name = auth()->user()->$nameAttr;
+		$email = auth()->user()->$emailAttr;
 
 		// resolve the impact key and value
 		$impactArr = unserialize(config('support.impact'));
@@ -79,11 +77,13 @@ class SupportController extends BaseController
 				$msg = trans('support.errors.support.model_not_found', [
 					'model' => $model
 				]);
-				Log::error($msg);
+				logger()->error($msg);
 				throw new SupportModelNotFoundException($msg);
 			}
 		}
 
-		// TODO: there was some kind of success, so re-direct back to the form
+		// there was some kind of success, so re-direct back to the form
+		return redirect()->back()->with('message',
+			trans('support.success.support'));
 	}
 }

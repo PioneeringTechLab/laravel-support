@@ -4,8 +4,6 @@ namespace CSUNMetaLab\Support\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 use CSUNMetaLab\Support\Exceptions\FeedbackModelNotFoundException;
@@ -35,9 +33,9 @@ class FeedbackController extends BaseController
 		$idAttr = config('support.submitter.id', 'id');
 		$nameAttr = config('support.submitter.name', 'name');
 		$emailAttr = config('support.submitter.email', 'email');
-		$user_id = Auth::user()->$idAttr;
-		$name = Auth::user()->$nameAttr;
-		$email = Auth::user()->$emailAttr;
+		$user_id = auth()->user()->$idAttr;
+		$name = auth()->user()->$nameAttr;
+		$email = auth()->user()->$emailAttr;
 
 		// determine what to report as the application name
 		$appName = config('app.name', 'Laravel');
@@ -73,11 +71,13 @@ class FeedbackController extends BaseController
 				$msg = trans('support.errors.feedback.model_not_found', [
 					'model' => $model
 				]);
-				Log::error($msg);
+				logger()->error($msg);
 				throw new FeedbackModelNotFoundException($msg);
 			}
 		}
 
-		// TODO: there was some kind of success, so re-direct back to the form
+		// there was some kind of success, so re-direct back to the form
+		return redirect()->back()->with('message',
+			trans('support.success.feedback'));
 	}
 }
