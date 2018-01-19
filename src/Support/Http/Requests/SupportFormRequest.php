@@ -2,7 +2,7 @@
 
 namespace CSUNMetaLab\Support\Http\Requests;
 
-use Config;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SupportFormRequest extends FormRequest
