@@ -56,7 +56,7 @@
 
             <div class="form-group">
               <label for="content"><span class="required">*</span> Feedback Message</label>
-              <textarea class="form-control" name="content" id="content" placeholder="Please enter your feedback message...">{{ old('content') }}</textarea>
+              <textarea class="form-control" rows="5" name="content" id="content" placeholder="Please enter your feedback message...">{{ old('content') }}</textarea>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit Feedback</button>

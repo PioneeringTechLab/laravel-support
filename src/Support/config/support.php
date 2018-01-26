@@ -127,7 +127,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | Determines the type (either "text" or "html") to use for the email
-    | messages.
+    | messages. You will want to set this value to match the way your email
+    | views are structured.
     |
     */
     'types' => [

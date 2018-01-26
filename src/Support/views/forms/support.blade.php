@@ -71,7 +71,7 @@
 
             <div class="form-group">
               <label for="content"><span class="required">*</span> Support Request Message</label>
-              <textarea class="form-control" name="content" id="content" placeholder="Please enter your support request message...">{{ old('content') }}</textarea>
+              <textarea class="form-control" rows="5" name="content" id="content" placeholder="Please enter your support request message...">{{ old('content') }}</textarea>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit Support Request</button>

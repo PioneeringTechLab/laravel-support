@@ -557,11 +557,24 @@ The template is structured as merely a text-based template (there is no HTML in 
 
 #### Feedback
 
-TBD
+The template for the feedback form exists as `feedback.blade.php` within the `resources/views/vendor/support/forms` directory. The following variables are exposed to the view by the matching controller:
+
+* `$submitter_name`: the name of the individual submitting the message
+* `$submitter_email`: the email address of the individual submitting the message
+* `$application_name`: the name of the application from where the message is being submitted
+
+The template is structured as a raw HTML document using Bootstrap 4. You are free to modify the template to match your application, of course.
 
 #### Support Request
 
-TBD
+The template for the support request form exists as `support.blade.php` within the `resources/views/vendor/support/forms` directory. The following variables are exposed to the view by the matching controller:
+
+* `$submitter_name`: the name of the individual submitting the message
+* `$submitter_email`: the email address of the individual submitting the message
+* `$application_name`: the name of the application from where the message is being submitted
+* `$impact`: the associative array of impacts that allows the individual to describe the severity of the problem
+
+The template is structured as a raw HTML document using Bootstrap 4. You are free to modify the template to match your application, of course.
 
 ## Resources
 
