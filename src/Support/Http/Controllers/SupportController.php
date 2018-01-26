@@ -144,7 +144,7 @@ class SupportController extends BaseController
 		}
 
 		// there was some kind of success, so re-direct back to the form
-		return redirect()->back()->with('message',
+		return redirect()->back()->with('success',
 			trans('support.success.support'));
 	}
 }

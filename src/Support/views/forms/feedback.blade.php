@@ -39,11 +39,19 @@
             </div>
           </div>
         </div>
-      @elseif(session('message'))
+      @elseif(!empty($success))
         <div class="row justify-content-md-center">
           <div class="col-sm-8">
             <div class="alert alert-success">
-              {{ session('message') }}
+              {{ $success }}
+            </div>
+          </div>
+        </div>
+      @elseif(session('success'))
+        <div class="row justify-content-md-center">
+          <div class="col-sm-8">
+            <div class="alert alert-success">
+              {{ session('success') }}
             </div>
           </div>
         </div>

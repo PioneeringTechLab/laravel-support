@@ -503,7 +503,7 @@ The `store()` method performs the following steps to process the feedback submis
 5. If database support is enabled, it performs the following steps:
     1. Checks for a valid feedback submission model. If the model does not exist, an instance of `CSUNMetaLab\Support\Exceptions\FeedbackModelNotFoundException` will be thrown.
     2. Invokes the `create()` method on the model to save the submitted data to the database
-6. Redirects back using the `redirect()->back()` method and adds a flash message called `message` that represents the text of the success message.
+6. Redirects back using the `redirect()->back()` method and adds a flash message called `success` that represents the text of the success message.
 
 ### Support Request Controller
 
@@ -524,7 +524,7 @@ The `store()` method performs the following steps to process the support request
 5. If database support is enabled, it performs the following steps:
     1. Checks for a valid support submission model. If the model does not exist, an instance of `CSUNMetaLab\Support\Exceptions\SupportModelNotFoundException` will be thrown.
     2. Invokes the `create()` method on the model to save the submitted data to the database
-6. Redirects back using the `redirect()->back()` method and adds a flash message called `message` that represents the text of the success message.
+6. Redirects back using the `redirect()->back()` method and adds a flash message called `success` that represents the text of the success message.
 
 ## Views
 
