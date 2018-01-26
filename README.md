@@ -1,7 +1,7 @@
 # Laravel Support Package
 Composer package for Laravel 5.0 and above to allow for feedback and support requests within an application.
 
-This package adds the ability to accept support requests out of the box with minimal code updates. Information about the currently-authenticated user will also be included with the messages.
+This package adds the ability to accept feedback and support submissions out of the box with minimal code updates. Information about the currently-authenticated user will also be included with the messages.
 
 MySQL database functionality is enabled by default to promote storage and persistence of messages that are sent out. This functionality is optional, however, so this package does not require a database in order to perform the sending of requests.
 
@@ -513,9 +513,36 @@ The `store()` method performs the following steps to process the support request
 
 ### Emails
 
-TBD
+#### Feedback
+
+The template for the feedback email exists as `feedback.blade.php` within the `resources/views/vendor/support/emails` directory. The following variables are exposed to the view by either a mailable or the direct invocation of methods on the `Mail` facade:
+
+* `$submitter_name`: the name of the individual submitting the message
+* `$submitter_email`: the email address of the individual submitting the message
+* `$application_name`: the name of the application from where the message is being submitted
+* `$content`: the body content of the message
+
+The template is structured as merely a text-based template (there is no HTML in it by default) to promote the ability to send to some kind of automated issue tracking system. You are free to modify the template however you wish, of course.
+
+#### Support Request
+
+The template for the feedback email exists as `support.blade.php` within the `resources/views/vendor/support/emails` directory. The following variables are exposed to the view by either a mailable or the direct invocation of methods on the `Mail` facade:
+
+* `$submitter_name`: the name of the individual submitting the message
+* `$submitter_email`: the email address of the individual submitting the message
+* `$application_name`: the name of the application from where the message is being submitted
+* `$impact`: the impact of the issue that resulted in the support request
+* `$content`: the body content of the message
+
+The template is structured as merely a text-based template (there is no HTML in it by default) to promote the ability to send to some kind of automated issue tracking system. You are free to modify the template however you wish, of course.
 
 ### Forms
+
+#### Feedback
+
+TBD
+
+#### Support Request
 
 TBD
 
