@@ -41,6 +41,13 @@ class FeedbackMailMessage extends Mailable implements ShouldQueue
 	public $content;
 
 	/**
+	 * Type of the message, either "text" or "html"
+	 *
+	 * @var string
+	 */
+	public $type;
+
+	/**
 	 * Constructs a new FeedbackMailMessage instance.
 	 *
 	 * @param string $submitter_name Name of the submitter
@@ -50,11 +57,12 @@ class FeedbackMailMessage extends Mailable implements ShouldQueue
 	 * message is being sent
 	 */
 	public function __construct($submitter_name, $submitter_email, $content,
-		$application_name="Laravel") {
+		$application_name="Laravel", $type="text") {
 		$this->submitter_name = $submitter_name;
 		$this->submitter_email = $submitter_email;
 		$this->content = $content;
 		$this->application_name = $application_name;
+		$this->type = $type;
 	}
 
 	/**
@@ -63,11 +71,20 @@ class FeedbackMailMessage extends Mailable implements ShouldQueue
 	 * @return $this
 	 */
 	public function build() {
-		return $this->from(
+		$msg = $this->from(
 				config('support.senders.feedback.address'),
 				config('support.senders.feedback.name')
 			)
-			->subject(config('support.titles.feedback'))
-			->view("support::emails.feedback");
+			->subject(config('support.titles.feedback'));
+
+		if($this->type == "text") {
+			$msg->text("support::emails.feedback");
+		}
+		else
+		{
+			$msg->view("support::emails.feedback");
+		}
+
+		return $msg;
 	}
 }

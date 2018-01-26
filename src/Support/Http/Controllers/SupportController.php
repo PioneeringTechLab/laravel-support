@@ -21,7 +21,21 @@ class SupportController extends BaseController
 	 * @return View
 	 */
 	public function create() {
-		return view("support::forms.support");
+		// retrieve the name and email attributes dynamically
+		$nameAttr = config('support.submitter.name', 'name');
+		$emailAttr = config('support.submitter.email', 'email');
+		$submitter_name = auth()->user()->$nameAttr;
+		$submitter_email = auth()->user()->$emailAttr;
+
+		// resolve the impact array
+		$impact = ["" => ""] + unserialize(config('support.impact'));
+
+		// determine what to report as the application name
+		$application_name = config('app.name', 'Laravel');
+
+		return view("support::forms.support", compact(
+			'submitter_name', 'submitter_email', 'impact', 'application_name'
+		));
 	}
 
 	/**
@@ -63,17 +77,25 @@ class SupportController extends BaseController
 			}
 		}
 
+		// resolve some more metadata about the email going out
 		$recipients = explode("|", config('support.recipients.support'));
 		$shouldCCSubmitter = config('support.send_copy_to_submitter');
+		$mailType = config('support.types.support');
+		if(!in_array($mailType, ["text", "html"])) {
+			$mailType = "text";
+		}
+
 		if(class_exists('Illuminate\Mail\Mailable')) {
 			// use an instance of a custom Mailable instance that is also
 			// queueable
-			$email = new SupportMailMessage($name, $email, $impactVal, $content, $appName);
+			$mailable = new SupportMailMessage(
+				$name, $email, $impactVal, $content, $appName, $mailType
+			);
 			$msg = Mail::to($recipients);
 			if($shouldCCSubmitter) {
 				$msg->cc($email);
 			}
-			$msg->send($email);
+			$msg->send($mailable);
 		}
 		else
 		{
@@ -85,7 +107,7 @@ class SupportController extends BaseController
 				'impact' => $impactVal,
 				'content' => $content,
 			];
-			Mail::queue('support::emails.support', $data,
+			Mail::queue([$mailType => 'support::emails.support'], $data,
 				function($message) use ($recipients, $shouldCCSubmitter) {
 					$message->from(config('support.senders.support.address'),
 						config('support.senders.support.name'))

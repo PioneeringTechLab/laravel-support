@@ -48,6 +48,13 @@ class SupportMailMessage extends Mailable implements ShouldQueue
 	public $content;
 
 	/**
+	 * Type of the message, either "text" or "html".
+	 *
+	 * @var string
+	 */
+	public $type;
+
+	/**
 	 * Constructs a new SupportMailMessage instance.
 	 *
 	 * @param string $submitter_name Name of the submitter
@@ -58,12 +65,13 @@ class SupportMailMessage extends Mailable implements ShouldQueue
 	 * message is being sent
 	 */
 	public function __construct($submitter_name, $submitter_email, $impact,
-		$content, $application_name="Laravel") {
+		$content, $application_name="Laravel", $type="text") {
 		$this->submitter_name = $submitter_name;
 		$this->submitter_email = $submitter_email;
 		$this->impact = $impact;
 		$this->content = $content;
 		$this->application_name = $application_name;
+		$this->type = $type;
 	}
 
 	/**
@@ -72,11 +80,20 @@ class SupportMailMessage extends Mailable implements ShouldQueue
 	 * @return $this
 	 */
 	public function build() {
-		return $this->from(
+		$msg = $this->from(
 				config('support.senders.support.address'),
 				config('support.senders.support.name')
 			)
-			->subject(config('support.titles.support'))
-			->view("support::emails.support");
+			->subject(config('support.titles.support'));
+
+		if($this->type == "text") {
+			$msg->text("support::emails.support");
+		}
+		else
+		{
+			$msg->view("support::emails.support");
+		}
+		
+		return $msg;
 	}
 }

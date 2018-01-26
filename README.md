@@ -81,13 +81,13 @@ You may also elect to add the following optional line(s) to your `.env` file to 
 
 ```
 FEEDBACK_FROM_ADDR=donotreply@example.com
-FEEDBACK_FROM_NAME=Do Not Reply
+FEEDBACK_FROM_NAME="Do Not Reply"
 
 SUPPORT_FROM_ADDR=donotreply@example.com
-SUPPORT_FROM_NAME=Do Not Reply
+SUPPORT_FROM_NAME="Do Not Reply"
 
-FEEDBACK_TITLE=New Feedback Submission
-SUPPORT_TITLE=New Support Request
+FEEDBACK_TITLE="New Feedback Submission"
+SUPPORT_TITLE="New Support Request"
 
 SUBMITTER_ID_ATTR=id
 SUBMITTER_NAME_ATTR=name
@@ -95,6 +95,9 @@ SUBMITTER_EMAIL_ATTR=email
 
 ALLOW_APPLICATION_NAME_OVERRIDE=false
 SEND_COPY_TO_SUBMITTER=false
+
+FEEDBACK_TYPE=text
+SUPPORT_TYPE=text
 
 ENABLE_DB=true
 ```
@@ -127,12 +130,12 @@ You will now need to add the various routes for the package. They are named rout
 Add the following group to your `routes.php` or `routes/web.php` file depending on Laravel version to enable the routes:
 
 ```
-Route::group(['middleware' => ['auth'], 'namespace' => '\CSUNMetaLab\Support\Http\Controllers'], function () {
-  Route::get('support', 'SupportController@create')->name('support.create');
-  Route::post('support', 'SupportController@store')->name('support.store');
+Route::group(['middleware' => ['auth']], function () {
+  Route::get('support', '\CSUNMetaLab\Support\Http\Controllers\SupportController@create')->name('support.create');
+  Route::post('support', '\CSUNMetaLab\Support\Http\Controllers\SupportController@store')->name('support.store');
 
-  Route::get('feedback', 'FeedbackController@create')->name('feedback.create');
-  Route::post('feedback', 'FeedbackController@store')->name('feedback.store');
+  Route::get('feedback', '\CSUNMetaLab\Support\Http\Controllers\FeedbackController@create')->name('feedback.create');
+  Route::post('feedback', '\CSUNMetaLab\Support\Http\Controllers\FeedbackController@store')->name('feedback.store');
 });
 ```
 
@@ -141,21 +144,21 @@ Route::group(['middleware' => ['auth'], 'namespace' => '\CSUNMetaLab\Support\Htt
 Add the following group to your `routes.php` file to enable the routes:
 
 ```
-Route::group(['middleware' => ['auth'], 'namespace' => '\CSUNMetaLab\Support\Http\Controllers'], function () {
+Route::group(['middleware' => ['auth']], function () {
   Route::get('support', [
-    'uses' => 'SupportController@create',
+    'uses' => '\CSUNMetaLab\Support\Http\Controllers\SupportController@create',
     'as' => 'support.create',
   ]);
   Route::post('support', [
-    'uses' => 'SupportController@store',
+    'uses' => '\CSUNMetaLab\Support\Http\Controllers\SupportController@store',
     'as' => 'support.store',
   ]);
   Route::get('feedback', [
-    'uses' => 'FeedbackController@create',
+    'uses' => '\CSUNMetaLab\Support\Http\Controllers\FeedbackController@create',
     'as' => 'feedback.create',
   ]);
   Route::post('feedback', [
-    'uses' => 'FeedbackController@store',
+    'uses' => '\CSUNMetaLab\Support\Http\Controllers\FeedbackController@store',
     'as' => 'feedback.store',
   ]);
 });
@@ -279,6 +282,18 @@ Default value is `false`.
 Boolean that describes whether the submitter should receive a copy of the message that was sent.
 
 Default is `false`.
+
+### FEEDBACK_TYPE
+
+Determines the type of feedback email message that will be sent. Valid values are `text` and `html`.
+
+Default value is `text`.
+
+### SUPPORT_TYPE
+
+Determines the type of support request email message that will be sent. Valid values are `text` and `html`.
+
+Default value is `text`.
 
 ### ENABLE_DB
 
@@ -484,10 +499,11 @@ The `store()` method performs the following steps to process the feedback submis
 3. Makes a decision based upon whether the `Illuminate\Mail\Mailable` class exists.
     * If the class exists, it resolves an instance of the [feedback mailable](#feedback-mailable) and uses that to send the message.
     * If the class does not exist, the `Mail` facade is used directly to send the message.
-4. If database support is enabled, it performs the following steps:
+4. Sends the feedback email message to the desired recipient(s)
+5. If database support is enabled, it performs the following steps:
     1. Checks for a valid feedback submission model. If the model does not exist, an instance of `CSUNMetaLab\Support\Exceptions\FeedbackModelNotFoundException` will be thrown.
     2. Invokes the `create()` method on the model to save the submitted data to the database
-5. Redirects back using the `redirect()->back()` method and adds a flash message called `message` that represents the text of the success message.
+6. Redirects back using the `redirect()->back()` method and adds a flash message called `message` that represents the text of the success message.
 
 ### Support Request Controller
 
@@ -504,10 +520,11 @@ The `store()` method performs the following steps to process the support request
 3. Makes a decision based upon whether the `Illuminate\Mail\Mailable` class exists.
     * If the class exists, it resolves an instance of the [support request mailable](#support-request-mailable) and uses that to send the message.
     * If the class does not exist, the `Mail` facade is used directly to send the message.
-4. If database support is enabled, it performs the following steps:
+4. Sends the support request message to the desired recipient(s)
+5. If database support is enabled, it performs the following steps:
     1. Checks for a valid support submission model. If the model does not exist, an instance of `CSUNMetaLab\Support\Exceptions\SupportModelNotFoundException` will be thrown.
     2. Invokes the `create()` method on the model to save the submitted data to the database
-5. Redirects back using the `redirect()->back()` method and adds a flash message called `message` that represents the text of the success message.
+6. Redirects back using the `redirect()->back()` method and adds a flash message called `message` that represents the text of the success message.
 
 ## Views
 

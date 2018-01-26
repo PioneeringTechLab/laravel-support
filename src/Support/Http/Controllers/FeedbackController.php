@@ -21,7 +21,18 @@ class FeedbackController extends BaseController
 	 * @return View
 	 */
 	public function create() {
-		return view("support::forms.feedback");
+		// retrieve the name and email attributes dynamically
+		$nameAttr = config('support.submitter.name', 'name');
+		$emailAttr = config('support.submitter.email', 'email');
+		$submitter_name = auth()->user()->$nameAttr;
+		$submitter_email = auth()->user()->$emailAttr;
+
+		// determine what to report as the application name
+		$application_name = config('app.name', 'Laravel');
+
+		return view("support::forms.feedback", compact(
+			'submitter_name', 'submitter_email', 'application_name'
+		));
 	}
 
 	/**
@@ -58,17 +69,25 @@ class FeedbackController extends BaseController
 			}
 		}
 
+		// resolve some more metadata about the email going out
 		$recipients = explode("|", config('support.recipients.feedback'));
 		$shouldCCSubmitter = config('support.send_copy_to_submitter');
+		$mailType = config('support.types.feedback');
+		if(!in_array($mailType, ["text", "html"])) {
+			$mailType = "text";
+		}
+
 		if(class_exists('Illuminate\Mail\Mailable')) {
 			// use an instance of a custom Mailable instance that is also
 			// queueable
-			$email = new FeedbackMailMessage($name, $email, $content, $appName);
+			$mailable = new FeedbackMailMessage(
+				$name, $email, $content, $appName, $mailType
+			);
 			$msg = Mail::to($recipients);
 			if($shouldCCSubmitter) {
 				$msg->cc($email);
 			}
-			$msg->send($email);
+			$msg->send($mailable);
 		}
 		else
 		{
@@ -79,7 +98,7 @@ class FeedbackController extends BaseController
 				'application_name' => $appName,
 				'content' => $content,
 			];
-			Mail::queue('support::emails.feedback', $data,
+			Mail::queue([$mailType => 'support::emails.feedback'], $data,
 				function($message) use ($recipients, $shouldCCSubmitter) {
 					$message->from(config('support.senders.feedback.address'),
 						config('support.senders.feedback.name'))
