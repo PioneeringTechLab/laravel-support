@@ -176,7 +176,7 @@ return [
     */
     'database' => [
 
-        'enabled' => env("ENABLE_DB", true),
+        'enabled' => env("SUPPORT_ENABLE_DB", true),
 
         'models' => [
 

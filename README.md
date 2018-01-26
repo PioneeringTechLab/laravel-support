@@ -99,7 +99,7 @@ SEND_COPY_TO_SUBMITTER=false
 FEEDBACK_TYPE=text
 SUPPORT_TYPE=text
 
-ENABLE_DB=true
+SUPPORT_ENABLE_DB=true
 ```
 
 If you want to keep the defaults for the given values, you do not need to include them in your `.env` file.
@@ -295,7 +295,7 @@ Determines the type of support request email message that will be sent. Valid va
 
 Default value is `text`.
 
-### ENABLE_DB
+### SUPPORT_ENABLE_DB
 
 MySQL database support is enabled by default so you will need to have a valid database connection. Database support can be disabled by setting this value to `false`. This package can still perform the sending of email messages even with database support disabled.
 
