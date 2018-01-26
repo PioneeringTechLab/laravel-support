@@ -17,6 +17,10 @@
         "classmap": [
             "src/Support/"
         ],
+        "exclude-from-classmap": [
+            "src/Support/Models",
+            "src/Support/migrations"
+        ],
         "psr-4": {
             "CSUNMetaLab\\Support\\": "src/Support/"
         }
