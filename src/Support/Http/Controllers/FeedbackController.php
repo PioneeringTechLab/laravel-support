@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Mail;
 use CSUNMetaLab\Support\Exceptions\InvalidFeedbackSenderException;
 use CSUNMetaLab\Support\Exceptions\FeedbackModelNotFoundException;
 
+use CSUNMetaLab\Support\Mail\FeedbackMailMessage;
+
 use CSUNMetaLab\Support\Http\Requests\FeedbackFormRequest;
 
 class FeedbackController extends BaseController
@@ -56,13 +58,38 @@ class FeedbackController extends BaseController
 			}
 		}
 
+		$recipients = explode("|", config('support.recipients.feedback'));
+		$shouldCCSubmitter = config('support.send_copy_to_submitter');
 		if(class_exists('Illuminate\Mail\Mailable')) {
 			// use an instance of a custom Mailable instance that is also
 			// queueable
+			$email = new FeedbackMailMessage($name, $email, $content, $appName);
+			$msg = Mail::to($recipients);
+			if($shouldCCSubmitter) {
+				$msg->cc($email);
+			}
+			$msg->send($email);
 		}
 		else
 		{
 			// send the email using the Mail facade and the queue() method
+			$data = [
+				'submitter_name' => $name,
+				'submitter_email' => $email,
+				'application_name' => $appName,
+				'content' => $content,
+			];
+			Mail::queue('support::emails.feedback', $data,
+				function($message) use ($recipients, $shouldCCSubmitter) {
+					$message->from(config('support.senders.feedback.address'),
+						config('support.senders.feedback.name'))
+						->to($recipients)
+						->subject(config('support.titles.feedback'));
+					if($shouldCCSubmitter) {
+						$message->cc($email);
+					}
+				}
+			);
 		}
 
 		// write the record to the database if database support is enabled

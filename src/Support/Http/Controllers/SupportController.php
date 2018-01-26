@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Mail;
 use CSUNMetaLab\Support\Exceptions\InvalidSupportSenderException;
 use CSUNMetaLab\Support\Exceptions\SupportModelNotFoundException;
 
+use CSUNMetaLab\Support\Mail\SupportMailMessage;
+
 use CSUNMetaLab\Support\Http\Requests\SupportFormRequest;
 
 class SupportController extends BaseController
@@ -61,13 +63,39 @@ class SupportController extends BaseController
 			}
 		}
 
+		$recipients = explode("|", config('support.recipients.support'));
+		$shouldCCSubmitter = config('support.send_copy_to_submitter');
 		if(class_exists('Illuminate\Mail\Mailable')) {
 			// use an instance of a custom Mailable instance that is also
 			// queueable
+			$email = new SupportMailMessage($name, $email, $impactVal, $content, $appName);
+			$msg = Mail::to($recipients);
+			if($shouldCCSubmitter) {
+				$msg->cc($email);
+			}
+			$msg->send($email);
 		}
 		else
 		{
 			// send the email using the Mail facade and the queue() method
+			$data = [
+				'submitter_name' => $name,
+				'submitter_email' => $email,
+				'application_name' => $appName,
+				'impact' => $impactVal,
+				'content' => $content,
+			];
+			Mail::queue('support::emails.support', $data,
+				function($message) use ($recipients, $shouldCCSubmitter) {
+					$message->from(config('support.senders.support.address'),
+						config('support.senders.support.name'))
+						->to($recipients)
+						->subject(config('support.titles.support'));
+					if($shouldCCSubmitter) {
+						$message->cc($email);
+					}
+				}
+			);
 		}
 
 		// write the record to the database if database support is enabled

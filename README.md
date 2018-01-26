@@ -469,11 +469,45 @@ The `Mail` facade will be used in conjunction with its `queue()` method in Larav
 
 ### Feedback Controller
 
-TBD
+This class is namespaced as `CSUNMetaLab\Support\Http\Controllers\FeedbackController`.
+
+#### Showing the Feedback Form
+
+The `create()` method shows the `feedback.blade.php` view inside of the `resources/views/vendor/support/forms` directory.
+
+#### Processing the Feedback Data
+
+The `store()` method performs the following steps to process the feedback submission:
+
+1. Checks for a valid sender address. If one does not exist, an instance of `CSUNMetaLab\Support\Exceptions\InvalidFeedbackSenderException` will be thrown.
+2. Resolves the ID, name, and email address of the currently-authenticated user dynamically.
+3. Makes a decision based upon whether the `Illuminate\Mail\Mailable` class exists.
+    * If the class exists, it resolves an instance of the [feedback mailable](#feedback-mailable) and uses that to send the message.
+    * If the class does not exist, the `Mail` facade is used directly to send the message.
+4. If database support is enabled, it performs the following steps:
+    1. Checks for a valid feedback submission model. If the model does not exist, an instance of `CSUNMetaLab\Support\Exceptions\FeedbackModelNotFoundException` will be thrown.
+    2. Invokes the `create()` method on the model to save the submitted data to the database
+5. Redirects back using the `redirect()->back()` method and adds a flash message called `message` that represents the text of the success message.
 
 ### Support Request Controller
 
-TBD
+#### Showing the Support Request Form
+
+The `create()` method shows the `support.blade.php` view inside of the `resources/views/vendor/support/forms` directory.
+
+#### Processing the Support Request Data
+
+The `store()` method performs the following steps to process the support request submission:
+
+1. Checks for a valid sender address. If one does not exist, an instance of `CSUNMetaLab\Support\Exceptions\InvalidSupportSenderException` will be thrown.
+2. Resolves the ID, name, and email address of the currently-authenticated user dynamically.
+3. Makes a decision based upon whether the `Illuminate\Mail\Mailable` class exists.
+    * If the class exists, it resolves an instance of the [support request mailable](#support-request-mailable) and uses that to send the message.
+    * If the class does not exist, the `Mail` facade is used directly to send the message.
+4. If database support is enabled, it performs the following steps:
+    1. Checks for a valid support submission model. If the model does not exist, an instance of `CSUNMetaLab\Support\Exceptions\SupportModelNotFoundException` will be thrown.
+    2. Invokes the `create()` method on the model to save the submitted data to the database
+5. Redirects back using the `redirect()->back()` method and adds a flash message called `message` that represents the text of the success message.
 
 ## Views
 
